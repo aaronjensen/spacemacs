@@ -27,6 +27,7 @@
         (term :location built-in)
         xterm-color
         vi-tilde-fringe
+        vterm
         ))
 
 (defun shell/init-comint ()
@@ -214,11 +215,12 @@
             shell-pop-window-size     shell-default-height
             shell-pop-term-shell      shell-default-term-shell
             shell-pop-full-span       shell-default-full-span)
-      (make-shell-pop-command eshell)
-      (make-shell-pop-command term shell-pop-term-shell)
-      (make-shell-pop-command ansi-term shell-pop-term-shell)
-      (make-shell-pop-command inferior-shell)
-      (make-shell-pop-command multiterm)
+      (make-shell-pop-command "eshell" eshell)
+      (make-shell-pop-command "term" term shell-pop-term-shell)
+      (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
+      (make-shell-pop-command "inferior-shell" inferior-shell)
+      (make-shell-pop-command "multiterm" multiterm)
+      (make-shell-pop-command "vterm" spacemacs/open-vterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
       (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
@@ -229,7 +231,8 @@
         "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term))))
+        "asT" 'spacemacs/shell-pop-term
+        "asv" 'spacemacs/shell-pop-vterm))))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
@@ -272,3 +275,15 @@
                             eshell-mode-hook
                             shell-mode-hook
                             term-mode-hook)))
+
+(defun shell/init-vterm ()
+  (use-package vterm
+    :defer t
+    :commands (vterm vterm-other-window)
+    :init
+    (progn
+      (spacemacs/register-repl 'vterm 'vterm))
+    :config
+    (progn
+      (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
+      (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))))
