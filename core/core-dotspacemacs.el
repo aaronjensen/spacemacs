@@ -759,6 +759,13 @@ error recovery."
                          'error-recover-prompt-for-style)
       (ad-activate 'dotspacemacs/init))))
 
+(defun dotspacemacs//package-in-additional-packages-p (name)
+  "Return non-nil if package NAME is in dottspacemacs-additional-packages."
+  (some (lambda (pkg)
+          (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
+            (eq pkg-name name)))
+        dotspacemacs-additional-packages))
+
 (defun dotspacemacs//test-dotspacemacs/layers ()
   "Tests for `dotspacemacs/layers'"
   (insert

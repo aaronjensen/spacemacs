@@ -27,8 +27,13 @@
         (term :location built-in)
         xterm-color
         vi-tilde-fringe
-        vterm
         ))
+
+;; [EXPERIMENTAL] As the vterm package does not exist in any of Emacs' package
+;; managers, you will have to clone and build it yourself and add it to your
+;; dotspacemacs-additional-packages: '((vterm :location "/path/to/your/clone"))
+(when (dotspacemacs//package-in-additional-packages-p 'vterm)
+  (push 'vterm shell-packages))
 
 (defun shell/init-comint ()
   (setq comint-prompt-read-only t)
@@ -219,7 +224,6 @@
       (make-shell-pop-command "ansi-term" ansi-term shell-pop-term-shell)
       (make-shell-pop-command "inferior-shell" inferior-shell)
       (make-shell-pop-command "multiterm" multiterm)
-      (make-shell-pop-command "vterm" spacemacs/open-vterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
 
@@ -229,8 +233,7 @@
         "asi" 'spacemacs/shell-pop-inferior-shell
         "asm" 'spacemacs/shell-pop-multiterm
         "ast" 'spacemacs/shell-pop-ansi-term
-        "asT" 'spacemacs/shell-pop-term
-        "asv" 'spacemacs/shell-pop-vterm))))
+        "asT" 'spacemacs/shell-pop-term))))
 
 (defun shell/init-term ()
   (spacemacs/register-repl 'term 'term)
@@ -280,6 +283,8 @@
     :commands (vterm vterm-other-window)
     :init
     (progn
+      (make-shell-pop-command "vterm" spacemacs/open-vterm)
+      (spacemacs/set-leader-keys "asv" 'spacemacs/shell-pop-vterm)
       (spacemacs/register-repl 'vterm 'vterm))
     :config
     (progn
