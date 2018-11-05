@@ -31,7 +31,8 @@
 
 (defun shell/init-comint ()
   (setq comint-prompt-read-only t)
-  (add-hook 'comint-mode-hook 'spacemacs/disable-hl-line-mode))
+  (add-hook 'comint-mode-hook 'spacemacs/disable-hl-line-mode)
+  (add-hook 'comint-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
 
 (defun shell/pre-init-company ()
   ;; support in eshell
@@ -80,7 +81,8 @@
       (autoload 'eshell-delchar-or-maybe-eof "em-rebind")
 
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell)
-      (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode))
+      (add-hook 'eshell-mode-hook 'spacemacs/disable-hl-line-mode)
+      (add-hook 'eshell-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
     :config
     (progn
 
@@ -251,7 +253,8 @@
     (kbd "C-k") 'term-send-up
     (kbd "C-j") 'term-send-down)
 
-  (add-hook 'term-mode-hook 'spacemacs/disable-hl-line-mode))
+  (add-hook 'term-mode-hook 'spacemacs/disable-hl-line-mode)
+  (add-hook 'term-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
 
 (defun shell/init-xterm-color ()
   (use-package xterm-color
