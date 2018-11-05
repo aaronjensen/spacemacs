@@ -203,8 +203,7 @@
               (funcall 'man command))
              ;; Send other commands to the default handler.
              (t (comint-simple-send proc command))))))
-  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
-  (add-hook 'shell-mode-hook 'spacemacs/disable-hl-line-mode))
+  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook))
 
 (defun shell/init-shell-pop ()
   (use-package shell-pop
@@ -223,7 +222,6 @@
       (make-shell-pop-command "vterm" spacemacs/open-vterm)
 
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
-      (add-hook 'term-mode-hook (lambda () (linum-mode -1)))
 
       (spacemacs/set-leader-keys
         "'"   'spacemacs/default-pop-shell
