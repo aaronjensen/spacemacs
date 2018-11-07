@@ -289,4 +289,12 @@
     :config
     (progn
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
-      (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))))
+      (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)
+
+      (purpose-set-extension-configuration
+       :vterm
+       (purpose-conf "vterm"
+                     :mode-purposes
+                     '((vterm-mode . terminal))))
+      (add-to-list 'purpose-special-action-sequences
+                   '(terminal display-buffer-same-window)))))
