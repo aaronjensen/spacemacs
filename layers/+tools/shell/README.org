@@ -6,6 +6,13 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#install-vterm-experimental][Install vterm (EXPERIMENTAL)]]
+    - [[#install-libvterm][Install libvterm]]
+      - [[#macos][MacOS]]
+      - [[#gnulinux][GNU/Linux]]
+      - [[#windows][Windows]]
+    - [[#clone-and-build-emacs-libvterm][Clone and build emacs-libvterm]]
+    - [[#add-it-to-your-additional-packages][Add it to your additional packages]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
   - [[#default-shell-position-width-and-height][Default shell position, width, and height]]
@@ -19,6 +26,7 @@
 - [[#key-bindings][Key bindings]]
   - [[#multi-term][Multi-term]]
   - [[#eshell-1][Eshell]]
+  - [[#vterm-experimental][Vterm (EXPERIMENTAL)]]
 
 * Description
 This layer configures the various shells available in Emacs.
@@ -30,14 +38,57 @@ This layer configures the various shells available in Emacs.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =shell= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+** Install vterm (EXPERIMENTAL)
+=vterm= is the latest addition to Emacs' set of terminal emulators and the only
+one to be implemented in C, leveraging =libvterm=. It is the only one in Emacs at
+the moment to be as fast as a standalone terminal and to support =ncurses=, =vim=,
+=top=, =htop= and the likes.
+*** Install libvterm
+**** MacOS
+#+BEGIN_SRC shell
+brew install libvterm
+#+END_SRC
+
+**** GNU/Linux
+In Ubtuntu:
+
+#+BEGIN_SRC shell
+sudo apt-get install libvterm
+#+END_SRC
+
+In other distros, find it and install it in your favorite package manager.
+
+**** Windows
+Not supported at the moment, but [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
+
+*** Clone and build emacs-libvterm
+You can find the install instructions [[https://github.com/akermu/emacs-libvterm#installation][here]]:
+
+#+BEGIN_SRC shell
+  git clone https://github.com/akermu/emacs-libvterm.git
+  mkdir -p build
+  cd build
+  cmake ..
+  make
+#+END_SRC
+
+*** Add it to your additional packages
+=emacs-libvterm= not being in any of Emacs' package managers at the moment, you
+will have to add it manually in your =dotspacemacs=:
+
+#+BEGIN_SRC elisp
+  (setq-default dotspacemacs-additional-packages
+    '((vterm :location "~/.emacs.d/private/local/emacs-libvterm")))
+#+END_SRC
 
 * Configuration
 ** Default shell
-Emacs supports three types of shell:
-- the Emacs shell
+Emacs supports five types of shells/terminals:
+- the Emacs shell eshell
 - the inferior shell
 - the terminal emulator
 - the ANSI terminal emulator
+- the vterm terminal emulator based on the C library libvterm (EXPERIMENTAL)
 
 You can find a quick introductions to them [[https://www.masteringemacs.org/article/running-shells-in-emacs-overview][here]].
 
@@ -48,6 +99,7 @@ to the following variables:
 - =term=
 - =ansi-term=
 - =multi-term=
+- =vterm= (EXPERIMENTAL)
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -208,7 +260,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |
 | ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
 | ~SPC a s T~ | Open, close or go to a =term=                              |
-| ~SPC m H~   | browse history with =helm= (works in =eshell= and =shell=) |
+| ~SPC a s v~ | Open, close or go to a =vterm=                             |
 | ~C-j~       | next item in history                                       |
 | ~C-k~       | previous item in history                                   |
 
@@ -233,3 +285,13 @@ in the current buffer instead of a popup.
 | Key binding        | Description                                |
 |--------------------+--------------------------------------------|
 | ~SPC m H~ or ~M-l~ | shell commands history using a helm buffer |
+
+
+
+
+** Vterm (EXPERIMENTAL)
+
+| Key Binding | Description |
+|-------------+-------------|
+| ~C-v~       | Scroll down |
+| ~M-v~       | Scroll up   |
