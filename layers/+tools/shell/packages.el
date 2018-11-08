@@ -288,6 +288,12 @@
       (spacemacs/register-repl 'vterm 'vterm))
     :config
     (progn
+      (define-key vterm-mode-map (kbd "C-c RET") 'vterm--self-insert)
+      (define-key vterm-mode-map (kbd "C-c \e") 'vterm--self-insert)
+      (evil-define-key 'normal vterm-mode-map
+        [escape] 'vterm--self-insert
+        [return] 'vterm--self-insert)
+
       (add-hook 'vterm-mode-hook 'spacemacs/disable-hl-line-mode)
       (add-hook 'vterm-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode)
 
