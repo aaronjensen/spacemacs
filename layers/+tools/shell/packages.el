@@ -285,7 +285,8 @@
     (progn
       (make-shell-pop-command "vterm" spacemacs/open-vterm)
       (spacemacs/set-leader-keys "asv" 'spacemacs/shell-pop-vterm)
-      (spacemacs/register-repl 'vterm 'vterm))
+      (spacemacs/register-repl 'vterm 'vterm)
+      (setq vterm-install t))
     :config
     (progn
       (define-key vterm-mode-map (kbd "C-c RET") 'vterm--self-insert)

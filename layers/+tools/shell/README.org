@@ -11,7 +11,7 @@
       - [[#macos][MacOS]]
       - [[#gnulinux][GNU/Linux]]
       - [[#windows][Windows]]
-    - [[#clone-and-build-emacs-libvterm][Clone and build emacs-libvterm]]
+    - [[#clone-emacs-libvterm][Clone emacs-libvterm]]
     - [[#add-it-to-your-additional-packages][Add it to your additional packages]]
 - [[#configuration][Configuration]]
   - [[#default-shell][Default shell]]
@@ -61,15 +61,9 @@ In other distros, find it and install it in your favorite package manager.
 **** Windows
 Not supported at the moment, but [[https://github.com/akermu/emacs-libvterm/issues/12][but possibly coming up]].
 
-*** Clone and build emacs-libvterm
-You can find the install instructions [[https://github.com/akermu/emacs-libvterm#installation][here]]:
-
+*** Clone emacs-libvterm
 #+BEGIN_SRC shell
-  git clone https://github.com/akermu/emacs-libvterm.git
-  mkdir -p build
-  cd build
-  cmake ..
-  make
+  git clone https://github.com/akermu/emacs-libvterm.git ~/.emacs.d/private/local/emacs-libvterm
 #+END_SRC
 
 *** Add it to your additional packages
